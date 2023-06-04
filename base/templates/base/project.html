@@ -1,0 +1,59 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .project-container{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
+
+
+<div class="project-container">
+    <div>
+        <h1>{{project.name}}</h1>
+        <p>Total Allocated Amount: Rs {{project.totalamount}}</p>
+        <p>Payments to Date: Rs {{project.payments_todate}}</p>
+
+        <p>{{project.description}}</p>
+
+
+        <div class="remark-wrapper">
+            <h3>Remarks</h3>
+            <hr>
+
+            {% for remark in remarks %}
+                <div>
+                    {% if request.user == remark.user %}
+                    <a href="{% url 'delete-remark' remark.id %}">Delete</a>
+                    {% endif %}
+                    <small>@{{remark.user}} {{remark.created|timesince}} ago</small>
+                    <p>{{remark.body}}</p>
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="remark-form">
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="text" name="body" placeholder="Please add your remarks"/>
+            </form>
+
+        </div>
+        {% endif %}
+    </div>
+
+    <div>
+        <h3>Authorized Users</h3>
+        <hr>
+        {% for user in authorized_users %}
+            <div>
+                <p>@{{user.username}}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Define your CSS styles for the PDF here */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 1.5cm;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      word-wrap: break-word;
+    }
+    .amount {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Project Name</th>
+        <th>Location</th>
+        <th>Total Amount</th>
+        <th>Payments to Date</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for project in projects %}
+        <tr>
+          <td>{{ project.name }}</td>
+          <td>{{ project.location }}</td>
+          <td class="amount">Rs. {{ project.totalamount }}.00</td>
+          <td class="amount">Rs. {{ project.payments_todate }}.00</td>
+          <td>{{ project.description }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

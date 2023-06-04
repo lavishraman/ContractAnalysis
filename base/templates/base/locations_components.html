@@ -1,0 +1,19 @@
+<div class="topics">
+    <div class="topics__header">
+      <h2>Browse Locations</h2>
+    </div>
+    <ul class="topics__list">
+      <li>
+        <a href="{% url 'home' %}" class="active">All <span>{{locations.count}}</span></a>
+      </li>
+      {% for location in locations %}
+      <li>
+        <a href="{% url 'home' %}?q={{location.name}}">{{location.name}}<span>{{location.project_set.all.count}}</span></a>
+      </li>
+      {% endfor %}
+    </ul>
+    
+  </div>
+
+
+
